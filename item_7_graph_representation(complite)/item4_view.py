@@ -89,7 +89,7 @@ def am_times():
     plt.show()
 
 
-def al_times():
+def all_times():
     random.seed(time.time())
     graph_list = []
     elem = []
@@ -146,3 +146,6 @@ def al_times():
     plt.grid(True)
 
     plt.show()
+
+
+all_times()

@@ -1,6 +1,17 @@
+"""
+Стек нужен когда важен порядок LIFO - в основном для Обработки рекурсий
+Очередь нужна когда важен FIFO - Обработка задач в ОС, алгоритм обхода в ширину (для отслеживания вершин которые
+следует посетить), симуляция реального мира
+
+Преимущества связного списка - Динамический размер, затраты по памяти, эффективны при удалении и добавлени так как
+нужно просто поиграть с указателями
+Статический массив - ограниченный размер, быстрый доступ к данным так как хранится в виде непрерывнгго блока памяти,
+не эффективны при удалении и вставке так как нужно перемещать все элементы
+"""
+
 class Stack:
     def __init__(self, size):
-        self.stack = [None] * size
+        self.stack = [None] * size # сразу выделяем память под стек
         self.top = -1
 
     def is_empty(self):
@@ -32,7 +43,11 @@ class Stack:
             raise Exception("Стек пуст")
         return self.stack[self.top]
 
-
+gg = Stack(10)
+gg.push(1)
+gg.push(2)
+gg.push(3)
+print(gg.peek())
 class Node:
     def __init__(self, data):
         self.data = data
@@ -157,3 +172,6 @@ class Queue:
         while current is not None:
             print(current.data)
             current = current.next
+
+stack = [None]*5
+print(stack)

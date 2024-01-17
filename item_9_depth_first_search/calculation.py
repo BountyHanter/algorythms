@@ -2,40 +2,42 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import time
 
-def create_graph(n):
-    m = n
+
+def create_disjoint_graph(n):
     graph = {}
-    for i in range(n):
-        for j in range(m):
-            node = i * m + j
-            if node not in graph:
-                graph[node] = []
-            if j < m - 1:
-                graph[node].append(node + 1)
-            else:
-                graph[node].append(i * m)  # замыкаем цикл
+
+    for component in range(n):
+        parent = component * n  # Устанавливаем первую вершину компоненты как родительскую
+
+        for i in range(component * n, (component + 1) * n):
+            graph[i] = []
+
+            # Создаем связи внутри каждой связной компоненты в виде дерева
+            if i > parent:
+                graph[parent].append(i)
+                graph[i].append(parent)
+
     return graph
 
+
+
 def count_components(graph):
-    """
-    Сложность = O(V+E), где V - количество рёбер, Е - количество вершин
-    """
+
     visited = set()
-    count = 0
+    components = 0
 
-    def dfs(node):
-        nonlocal visited
-        visited.add(node)
-        for neighbor in graph[node]:
-            if neighbor not in visited:
-                dfs(neighbor)
+    def dfs(vertex):
+        visited.add(vertex)  # Добавляем текущую вершину в посещенные
+        for neighbor in graph[vertex]:  # Обходим всех соседей текущей вершины
+            if neighbor not in visited:  # Если соседняя вершина еще не была посещена
+                dfs(neighbor)  # Продолжаем обход из соседней вершины
 
-    for node in graph:
-        if node not in visited:
-            dfs(node)
-            count += 1
+    for vertex in graph:  # Обходим все вершины графа
+        if vertex not in visited:
+            dfs(vertex)  # Начинаем обход из этой вершины
+            components += 1
 
-    return count
+    return components
 
 def draw_graph(graph):
     G = nx.Graph()
@@ -47,24 +49,6 @@ def draw_graph(graph):
     plt.show()
 
 
-lst = [i for i in range(100,1000,100)]
-result = {}
-
-for i in lst:
-    graph = create_graph(i)
-    start_time = time.time()
-    count_components(graph)
-    end_time = time.time()
-    res = end_time-start_time
-    print(res)
-    result[i] = res
-print(result)
-
-plt.figure(figsize=(8, 5))
-plt.plot(list(result.keys()), list(result.values()), marker='o', linestyle='-', color='m')
-plt.title('Отношение времени поиска ребра к n')
-plt.xlabel('Количество рёбер')
-plt.ylabel('Время(сек.)')
-plt.grid(True)
-
-plt.show()
+g = create_disjoint_graph(5)
+draw_graph(g)
+print(count_components(g))

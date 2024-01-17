@@ -96,3 +96,5 @@ def sparse_graph():
     result = generate_graph(n, m)
     print(result)
     draw_graph(result)
+
+sparse_graph()
