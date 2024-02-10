@@ -129,12 +129,12 @@ class Queue:
             i = (i + 1) % self.size
 
 
-class Node:
+class Node1:
     def __init__(self, data):
         self.data = data
         self.next = None
 
-class Queue:
+class Queue1:
     def __init__(self):
         self.head = None
         self.tail = None
@@ -143,7 +143,7 @@ class Queue:
         return self.head is None
 
     def enqueue(self, data):
-        new_node = Node(data)
+        new_node = Node1(data)
         if self.is_empty():
             self.head = self.tail = new_node
         else:
@@ -160,6 +160,7 @@ class Queue:
         return data
 
     def contains(self, item):
+        """ Check if item in queue"""
         current = self.head
         while current is not None:
             if current.data == item:
