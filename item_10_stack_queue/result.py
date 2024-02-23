@@ -43,11 +43,7 @@ class Stack:
             raise Exception("Стек пуст")
         return self.stack[self.top]
 
-gg = Stack(10)
-gg.push(1)
-gg.push(2)
-gg.push(3)
-print(gg.peek())
+
 class Node:
     def __init__(self, data):
         self.data = data
@@ -159,6 +155,11 @@ class Queue1:
             self.tail = None
         return data
 
+    def take_first(self):
+        if self.is_empty():
+            return None
+        return self.head
+
     def contains(self, item):
         """ Check if item in queue"""
         current = self.head
@@ -174,5 +175,12 @@ class Queue1:
             print(current.data)
             current = current.next
 
-stack = [None]*5
-print(stack)
+if __name__ == '__main__':
+    gg = Stack(10)
+    gg.push(1)
+    gg.push(2)
+    gg.push(3)
+    print(gg.peek())
+
+    stack = [None]*5
+    print(stack)
